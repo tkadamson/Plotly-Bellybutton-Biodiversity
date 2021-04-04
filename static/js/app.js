@@ -54,4 +54,33 @@ let personalData = demographics.filter(function (person) {
   let barData = [trace1];
 
   Plotly.newPlot("bar", barData, layout);
+
+  //Place demographic info in a table
+  //Get keys and values separately
+
+  const tbody = d3.select("#sample-metadata");
+
+  let demo_labels = Object.keys(personalData[0]);
+  console.log(demo_labels);
+
+  let demo_info = Object.values(personalData[0]);
+  console.log(demo_info);
+
+  //for loop for array length
+  for (let i = 0; i < demo_labels.length; i++) {
+
+     let row = tbody.append("tr");
+
+     let cell1 = row.append("td");
+     cell1.text(demo_labels[i]); 
+     cell1.style("font-weight", "bold");
+     cell1.style("padding-left", "10px");
+     cell1.style("padding-right", "30px");
+
+
+     let cell2 = row.append("td");
+     cell2.text(demo_info[i]);
+  };
+
+
 }); 
