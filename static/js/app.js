@@ -27,6 +27,7 @@ for (let i = 0; i < names.length; i++) {
 //Initial plot on page load
 genPlots('940');
 
+//genPlots is where the work will be done to generate each piece based on an id
 function genPlots(id) {
 
    //Filter the json data to match the id
@@ -77,14 +78,14 @@ function genPlots(id) {
 
    //Place demographic info in a table
    //Get keys and values separately
-
-   const tbody = d3.select("#sample-metadata");
-
    let demo_labels = Object.keys(personalData[0]);
    console.log(demo_labels);
 
    let demo_info = Object.values(personalData[0]);
    console.log(demo_info);
+
+   //Use d3 to grab the tbody element
+   const tbody = d3.select("#sample-metadata");
 
    //Reset table html
    tbody.html("");
@@ -106,6 +107,28 @@ function genPlots(id) {
       let cell2 = row.append("td");
       cell2.text(demo_info[i]);
    };
+
+   //Gauge Chart
+   let trace3 ={
+         domain: { x: [0, 1], y: [0, 1] },
+         value: demo_info[6],
+         title: { text: "Wash Frequency" },
+         type: "indicator",
+         mode: "gauge+number",
+         gauge: {
+            axis: {range: [0, 10]}
+         }
+      };
+
+   let gaugeLayout = { 
+      width: 600, 
+      height: 400, 
+      margin: { t: 0, b: 0 } 
+   };
+
+   gaugeData = [trace3];
+
+   Plotly.newPlot('gauge', gaugeData, gaugeLayout);
 
    //Bubble Chart
 
