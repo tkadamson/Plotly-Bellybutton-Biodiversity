@@ -2,12 +2,27 @@ d3.json('samples.json').then(function(data) {
 
 console.log(data);
 
-//Read demographic and sample data
+//Read all data from the json file
 let demographics = data.metadata;
 console.log(demographics);
 
 let samples = data.samples;
 console.log(samples);
+
+let names = data.names;
+
+//use d3 to grab the select element
+const menu = d3.select("#selDataset");
+
+for (let i = 0; i < names.length; i++) {
+
+   //for every name, append an option tag
+   let label = menu.append("option");
+
+   //set the valeu of the option tag to each name
+   label.text(names[i]);
+};
+
 
 //Initial plot on page load
 genPlots('940');
@@ -41,7 +56,7 @@ function genPlots(id) {
    let otu_labels10 = otu_labels.slice(0, 10);
    console.log(otu_labels10);
 
-   //Use data in a trace
+   //Use data in a trace for the bar chart
    let trace1 = {
          x: sample_values10,
          y: otu_ids10,
@@ -77,9 +92,10 @@ function genPlots(id) {
    //for loop for array length
    for (let i = 0; i < demo_labels.length; i++) {
 
+      //append a row for each object
       let row = tbody.append("tr");
       
-      //Append the left cell (label) first, with bold
+      //Append the left cell (label) first to a td element, with bold styling and padding
       let cell1 = row.append("td");
       cell1.text(demo_labels[i]); 
       cell1.style("font-weight", "bold");
@@ -91,45 +107,6 @@ function genPlots(id) {
       cell2.text(demo_info[i]);
    };
 
-   //Gauge Chart
-   //Copied from https://code.tutsplus.com/tutorials/create-interactive-charts-using-plotlyjs-pie-and-gauge-charts--cms-29216
-   //with modifications to needle positioning and color scheme
-
-   let trace3 = {
-      type: 'pie',
-      hole: 0.4,
-      rotation: 90,
-      showlegend: false,
-      values: [ 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81],
-      text: ['0','1','2','3','4','5','6','7','8+'],
-      direction: 'clockwise',
-      textinfo: 'text',
-      textposition: 'inside',
-      marker: {
-         colors: ['rgba(61, 193, 67, 0.2)', 'rgba(61, 193, 67, 0.3)', 'rgba(61, 193, 67, 0.4)', 'rgba(61, 193, 67, 0.5)', 'rgba(61, 193, 67, 0.6)', 'rgba(61, 193, 67, 0.7)', 'rgba(61, 193, 67, 0.8)', 'rgba(61, 193, 67, 0.9)', 'rgb(61, 193, 67)', 'white'],
-        labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
-      }
-   };
- 
-let gaugeLayout = {
-   width: 750, 
-   height: 500,
-   shapes:[{
-      type: 'line',
-      x0: 0.5,
-      y0: 0.5,
-      x1: 0.5,
-      y1: 0.8,
-      line: {
-        color: 'black',
-        width: 3
-      }
-    }]
-   };
-
-   let gaugeData = [trace3];
-
-   Plotly.newPlot('gauge', gaugeData, gaugeLayout); 
    //Bubble Chart
 
    let trace2 = {
@@ -140,9 +117,15 @@ let gaugeLayout = {
       text: otu_labels
    };
 
+   let bubbleLayout = {
+      title: "All OTU's By Sample Count",
+      xaxis: {title: "OTU ID"},
+      yaxis: {title: "OTU Count"}
+   };
+
    let bubbleData = [trace2];
 
-   Plotly.newPlot('bubble', bubbleData);
+   Plotly.newPlot('bubble', bubbleData, bubbleLayout);
    };
 
 // This function is called when a dropdown menu item is selected
@@ -156,6 +139,7 @@ function runID() {
   genPlots(id);
 }
 
+//When the selector is changed, it grabs the id number, then generates the plot in the above function
 d3.selectAll("#selDataset").on("change", runID);
 
 }); 
