@@ -14,13 +14,17 @@ Inside genPlots(), I first used filter functions to narrow the data down to only
 
 Once I had the filtered data, I passed the data for the bar chart into trace1, and created a layout opject for the Plotly call. See below for the exact parameters used. I then used Plotly.newPlot() to generate the plot on the "bar" id in index.html. 
 
+![bar_js](https://github.com/tkadamson/hw12-plotly-bellybutton-biodiversity/blob/main/bar_js.png)
+
 (Note: index.html was already created in the sample code. I slightly modified it to better fit the data, but it reamined mostly the same.)
 
 Next I worked on getting demogrphic data to disply on the page. I used Object.values and Object.keys to grab each key-value pair in the filtered metadata. I then used d3 to first erase the existing tbody tag and replace it with a new row with the key on the left and the valeu on the right. I did some in-line styling as well to make the key bold and padded slightly. 
   
 After the table, I created the gauge chart. I copied the basic gauge from the plotly javascript page, and replced the value feild with the wash frequency number. I also set the gauge range to 0-10 so that it was static and the gauge filled up to 10 with more washes. 
 
-Lastly, I creaed the bubble chart, very similarly to the bar chart. See below for the exact parameters:
+Lastly, I creaed the bubble chart, very similarly to the bar chart. See below for the exact parameters
+
+![bubble_js](https://github.com/tkadamson/hw12-plotly-bellybutton-biodiversity/blob/main/bubble_js.png)
 
 Once I finished the genPlots() function, I need to create a function that grabbed the id that the user selected. This function, runID() was set to run when an event listener detected a change on the select tag. I used d3 to grab that select element and se the id equal to the user's selection. it then calls genPlots() and passes in the new id. 
   
