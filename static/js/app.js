@@ -98,14 +98,14 @@ function genPlots(id) {
       
       //Append the left cell (label) first to a td element, with bold styling and padding
       let cell1 = row.append("td");
-      cell1.text(demo_labels[i]); 
+      cell1.text(`${demo_labels[i]}:`); 
       cell1.style("font-weight", "bold");
       cell1.style("padding-left", "10px");
       cell1.style("padding-right", "30px");
 
       //Append data to the right
       let cell2 = row.append("td");
-      cell2.text(demo_info[i]);
+      cell2.text(`${demo_info[i]}:`);
    };
 
    //Gauge Chart
