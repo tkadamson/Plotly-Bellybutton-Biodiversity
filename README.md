@@ -1,6 +1,10 @@
-# hw12-plotly-bellybutton-biodiversity
+# Plotly-Bellybutton-Biodiversity
 
-### Solution WriteUp | GRADE: -
+### Summary | GRADE: A+
+
+For this assignment, I was given a JSON file containing data on bacteria samples taken from individuals' bellybuttons, including demographic information on the individual, and the sample size and type of bacteria found. I used this data to build visualizations using the Plotly.js library.
+
+### Project Writeup
 
 To complete this assignment, I first had to read in the data from the given samples.json file. I used d3.json to grab the file, and then wrote the rest of the program inside of this function. 
 
