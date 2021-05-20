@@ -33,3 +33,5 @@ Lastly, I creaed the bubble chart, very similarly to the bar chart. See below fo
 Once I finished the genPlots() function, I need to create a function that grabbed the id that the user selected. This function, runID() was set to run when an event listener detected a change on the select tag. I used d3 to grab that select element and se the id equal to the user's selection. it then calls genPlots() and passes in the new id. 
   
 The last line is the creation of the event listener, which calls runID() on a change to the select tag.
+
+![App](static/images/full_page.png)
